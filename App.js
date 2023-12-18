@@ -14,14 +14,14 @@ const App = () => {
  return (
    <NavigationContainer>
      <Stack.Navigator
-     initialRouteName="Screen1"
+     initialRouteName="Start"
      >
        <Stack.Screen
-         name="Screen1"
+         name="Start"
          component={Screen1}
          />
        <Stack.Screen
-       name="Screen2"
+       name="Chat"
        component={Screen2}
        /> 
      </Stack.Navigator>
@@ -33,4 +33,5 @@ const App = () => {
 
 
 export default App;
+
 

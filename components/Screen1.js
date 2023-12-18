@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { StyleSheet, View, Text, Button, TextInput, ImageBackground, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, Button, TextInput, ImageBackground, Image, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native';
 import background from '../components/BackgroundImage.png';
 
 
@@ -35,39 +35,42 @@ return (
  <View style={styles.threeCircles}>
   <TouchableOpacity style={[ styles.circle, styles.circleColor1]}
  onPress={() =>  { setBackgroundColor('#090C08');
-navigation.navigate('Screen2', {backgroundColor: '#090C08'});
 }}
 />
   <TouchableOpacity style={[ styles.circle, styles.circleColor2]}
   onPress={() =>{ setBackgroundColor('#474056');
-  navigation.navigate('Screen2', { backgroundColor:'#474056' });
  }}
   />
   <TouchableOpacity style={[ styles.circle, styles.circleColor3]}
    onPress={() =>{ setBackgroundColor('#8A95A5');
-   navigation.navigate('Screen2', { backgroundColor:'#8A95A5' });
   }}
    />
   <TouchableOpacity style={[ styles.circle, styles.circleColor4]}
     onPress={() =>{ setBackgroundColor('#B9C6AE');
-    navigation.navigate('Screen2', { backgroundColor:'#B9C6AE' });
    }}
      
   />
   </View>
 
-
+  <TouchableOpacity
+  accessible={true}
+  accessibilityLabel="More options"
+  accessibilityHint="Lets you choose to send an image or your geolocation."
+  accessibilityRole="button"
+  >
 <View style={styles.button}>
     <Button
       style={styles.button}
       title="Start Chatting"
       color="#757083"
-      onPress={() => navigation.navigate('Screen2', { name: name, backgroundColor: backgroundColor })}
+      onPress={() => navigation.navigate('Chat', { name: name, backgroundColor: backgroundColor })}
     />
     </View>
-  
+    </TouchableOpacity>
     </View>
+    
    </ImageBackground>
+   {Platform.OS === "ios"?<KeyboardAvoidingView behavior="padding" />: null}
   </View>
 );
 }
