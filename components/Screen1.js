@@ -7,7 +7,6 @@ import { getAuth, signInAnonymously } from 'firebase/auth';
 
 const Screen1 = ({ navigation }) => {
    const [name, setName] = useState('');
- 
    const [backgroundColor, setBackgroundColor] = useState('');
 
    //logging in user anonymously
@@ -16,7 +15,11 @@ const Screen1 = ({ navigation }) => {
    const signInUser = () => {
     signInAnonymously(auth)
       .then(result => {
-        navigation.navigate("Chat", { userID: result.user.uid });
+        navigation.navigate("Chat", { 
+          userID: result.user.uid,
+          name: name,
+          backgroundColor: backgroundColor
+        });
         Alert.alert("Signed in Successfully!");
       })
       .catch((error) => {
@@ -78,7 +81,7 @@ return (
       style={styles.button}
       title="Start Chatting"
       color="#757083"
-      onPress={() => navigation.navigate('Chat', {signInAnonymously, signInUser, backgroundColor: backgroundColor })}
+      onPress={() => signInUser() }
     />
     </View>
     </TouchableOpacity>

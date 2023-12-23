@@ -17,9 +17,9 @@ const Screen2 = ({ route, navigation, db}) => {
        
        const q = query(collection(db,"messages"), orderBy("createdAt",
        "desc"))
-       const unsubMessages = onSnapshot(q, (documentsSnapshot) => {
+       const unsubMessages = onSnapshot(q, (docs) => {
         let newMessages = [];
-        documentsSnapshot.forEach(doc => {
+        docs.forEach(doc => {
           newMessages.push({ 
             id: doc.id, ...doc.data(), createdAt: doc.data().createdAt.toDate() })
         });
