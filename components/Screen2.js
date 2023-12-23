@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import { GiftedChat, Bubble } from "react-native-gifted-chat";
-import { StyleSheet, View, Text, KeyboardAvoidingView, Platform } from 'react-native';
-import { collection, getDocs, addDoc, onSnapshot, query, orderBy } from 'firebase/firestore';
+import { StyleSheet, View, KeyboardAvoidingView, Platform } from 'react-native';
+import { collection, addDoc, onSnapshot, query, orderBy } from 'firebase/firestore';
 
 const Screen2 = ({ route, navigation, db}) => {
-  const { name, userID } = route.params;
+  const { name } = route.params;
+  const { userID } = route.params;
   const { backgroundColor } = route.params;
   const [messages, setMessages] = useState([]);
   
@@ -21,7 +22,8 @@ const Screen2 = ({ route, navigation, db}) => {
         let newMessages = [];
         docs.forEach(doc => {
           newMessages.push({ 
-            id: doc.id, ...doc.data(), createdAt: doc.data().createdAt.toDate() })
+            id: doc.id, ...doc.data(), 
+            createdAt: doc.data().createdAt.toDate() })
         });
         setMessages(newMessages);
        });
@@ -52,12 +54,14 @@ const Screen2 = ({ route, navigation, db}) => {
 return (
  <View style={[styles.container, {backgroundColor:backgroundColor}]}>
       <GiftedChat
-     name = { name }
+     name={name}
      messages={messages}
      renderBubble={renderBubble}
      onSend={messages => onSend(messages)}
-     user={ userID }
-    
+     user={{
+      _id: userID,
+      name: name,
+     }}
    />
    { Platform.OS === 'android' ? <KeyboardAvoidingView behavior="height" /> : null }
   </View>
