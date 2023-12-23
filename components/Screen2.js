@@ -37,6 +37,7 @@ const Screen2 = ({ route, navigation, db}) => {
       navigation.setOptions({ title: name })
      },[]);
 
+     //sets color of the chat bubbles for each user
    const renderBubble = (props) => {
     return <Bubble
       {...props}
