@@ -15,10 +15,10 @@ const Screen2 = ({ route, navigation, db, isConnected}) => {
    newMessages[0])
   }
 
+  
   let unsubMessages;
-
    useEffect(() => {
-    
+   
        if (isConnected === true){
        const q = query(collection(db,"messages"), orderBy("createdAt",
        "desc"))
@@ -27,7 +27,8 @@ const Screen2 = ({ route, navigation, db, isConnected}) => {
         docs.forEach(doc => {
           newMessages.push({ 
             id: doc.id, ...doc.data(), 
-            createdAt: doc.data().createdAt.toDate() })
+            createdAt: doc.data().createdAt.toDate(),
+             })
         });
         cacheMessages(newMessages);
         setMessages(newMessages);
@@ -83,7 +84,7 @@ return (
      renderBubble={renderBubble}
      renderInputToolbar={renderInputToolbar}
      onSend={messages => onSend(messages)}
-     user={{
+     user= {{
       _id: userID,
       name: name,
      }}

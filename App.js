@@ -18,6 +18,7 @@ import { useEffect } from 'react';
 import { LogBox, Alert } from 'react-native';
 
 
+
 //initialize cloud firestore and ger a reference to the service
 const Stack = createNativeStackNavigator();
 
