@@ -59,7 +59,8 @@ const loadCachedMessages = async () => {
 
      //sets color of the chat bubbles for each user
    const renderBubble = (props) => {
-    return <Bubble
+    return (
+    <Bubble
       {...props}
       wrapperStyle={{
         right: {
@@ -70,7 +71,8 @@ const loadCachedMessages = async () => {
         }
       }}
     />
-  }
+    );
+  };
   const renderInputToolbar = (props) => {
     if (isConnected) return <InputToolbar {...props} />;
     else return null;
@@ -84,7 +86,7 @@ return (
      renderBubble={renderBubble}
      renderInputToolbar={renderInputToolbar}
      onSend={messages => onSend(messages)}
-     user= {{
+     user={{
       _id: userID,
       name: name,
      }}
