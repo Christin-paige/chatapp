@@ -1,10 +1,12 @@
-import { TouchableOpacity, StyleSheet, Text, View } from 'react-native';
+import { TouchableOpacity, StyleSheet, Text, View, Alert } from 'react-native';
 import { useActionSheet } from '@expo/react-native-action-sheet';
 import * as ImagePicker from 'expo-image-picker';
 import * as Location from 'expo-location';
+import { useState } from 'react';
 
-const customActions = ({ wrapperStyle, iconTextStyle}) => {
+const customActions = ({ wrapperStyle, iconTextStyle, onSend }) => {
     const actionSheet = useActionSheet();
+    const [image, setImage] = useState(null);
 
    
         const onActionPress = () => {
@@ -55,10 +57,16 @@ const customActions = ({ wrapperStyle, iconTextStyle}) => {
         
             if (permissions?.granted) {
               const location = await Location.getCurrentPositionAsync({});
-              setLocation(location);
-            } else {
-              Alert.alert("Permissions to read location aren't granted");
-            }
+              
+              if (location) {
+                onSend({
+                  location: {
+                    longitude: location.coords.longitude,
+                    latitude: location.coords.latitude,
+                  },
+                });
+              } else Alert.alert("Error occurred while fetching location");
+            } else Alert.alert("Permissions haven't been granted.");
           }
 
     return (

@@ -17,7 +17,7 @@ const Screen1 = ({ navigation }) => {
       .then(result => {
         navigation.navigate("Chat", { 
           userID: result.user.uid,
-          name: name,
+          name,
           backgroundColor: backgroundColor
         });
         Alert.alert("Signed in Successfully!");
@@ -81,7 +81,7 @@ return (
       style={styles.button}
       title="Start Chatting"
       color="#757083"
-      onPress={() => signInUser() }
+      onPress={ signInUser }
     />
     </View>
     </TouchableOpacity>

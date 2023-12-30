@@ -3,6 +3,7 @@ import { initializeApp } from "firebase/app";
 //disable reconnection attempts by firestore db and add to useEffect
 import { getFirestore, disableNetwork, enableNetwork  } from "firebase/firestore";
 
+
 // import the screens
 import Screen1 from './components/Screen1';
 import Screen2 from './components/Screen2';
@@ -21,6 +22,8 @@ import { LogBox, Alert } from 'react-native';
 
 //initialize cloud firestore and ger a reference to the service
 const Stack = createNativeStackNavigator();
+
+LogBox.ignoreLogs(["Failed prop type", "@firebase/auth:"]);
 
 const App = () => {
    //defines network connectivity status
@@ -63,15 +66,16 @@ const App = () => {
        <Stack.Screen
        name="Chat"
        >
-        {props => <Screen2 isConnected={connectionStatus.isConnected} db={db} {...props}/>}
+        {props => <Screen2 
+        isConnected={connectionStatus.isConnected} 
+        db={db} 
+        {...props}
+        />}
        </Stack.Screen>
      </Stack.Navigator>
    </NavigationContainer>
  );
 }
-
-
-
 
 export default App;
 
