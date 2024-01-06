@@ -6,22 +6,26 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import CustomActions from './CustomActions';
 import MapView from 'react-native-maps';
 
-const Screen2 = ({ route, navigation, db, isConnected}) => {
+
+const Screen2 = ({ route, navigation, db, isConnected, storage}) => {
   const { name } = route.params;
   const { userID } = route.params;
   const { backgroundColor } = route.params;
   const [messages, setMessages] = useState([]);
   
+  //adding and saving messages to the database
   const onSend = (newMessages) => {
-   addDoc(collection(db,"messages"),
-   newMessages[0])
+    addDoc(collection(db,"messages"),
+     newMessages[0])
   }
-
   
   let unsubMessages;
    useEffect(() => {
-     navigation.setOptions({ title: name });
+     navigation.setOptions({ 
+      title: name
+    });
 
+//displays chat for user online
        if (isConnected === true){
        const q = query(collection(db,"messages"), orderBy("createdAt",
        "desc"));
@@ -45,26 +49,22 @@ const Screen2 = ({ route, navigation, db, isConnected}) => {
        }
      }, [isConnected]);
 //adding async storage
-const loadCachedMessages = async () => {
-  const cachedMessages = await AsyncStorage.getItem("messages") || [];
-  setMessages(JSON.parse(cachedMessages));
-}
+     const loadCachedMessages = async () => {
+     const cachedMessages = await AsyncStorage.getItem("messages") || [];
+       setMessages(JSON.parse(cachedMessages));
+    }
      const cacheMessages = async (messagesToCache) => {
       try {
         await AsyncStorage.setItem("messages", JSON.stringify(messagesToCache));
       } catch (error) {
         console.log(error.message);
       }
-    }
-
-     useEffect(() => {
-      navigation.setOptions({ title: name })
-     },[]);
-
+    };
+  
      const renderInputToolbar = (props) => {
-      if (isConnected) return <InputToolbar {...props} />;
+      if (isConnected === true) return <InputToolbar {...props} />;
       else return null;
-     }
+     };
 
      //sets color of the chat bubbles for each user
    const renderBubble = (props) => {
@@ -83,20 +83,22 @@ const loadCachedMessages = async () => {
     )
   };
   
- 
+ //added storage as a parameter bc of an error when loading the app
    const renderCustomActions = (props) => {
-    return <CustomActions {...props} />;
+    return <CustomActions storage={storage} userID={userID} {...props} />;
   };
 
   const renderCustomView = (props) => {
-    const { currentMessage} = props;
+    const { currentMessage } = props;
     if (currentMessage.location) {
       return (
           <MapView
-            style={{width: 150,
+            style={{
+              width: 150,
               height: 100,
               borderRadius: 13,
-              margin: 3}}
+              margin: 3
+            }}
             region={{
               latitude: currentMessage.location.latitude,
               longitude: currentMessage.location.longitude,
@@ -114,15 +116,16 @@ return (
       <GiftedChat
      messages={messages}
      renderActions={renderCustomActions}
-     renderCustomView={renderCustomView}
+     renderCustomView={renderCustomView}//renders MapView
      renderBubble={renderBubble}
      renderInputToolbar={renderInputToolbar}
-     onSend={messages => onSend(messages)}
+     onSend={messages => onSend(messages)} //sends a message containing picked image
      user={{
       _id: userID,
       name
      }}
    />
+
    { Platform.OS === 'android' ? <KeyboardAvoidingView behavior="height" /> : null }
   </View>
 

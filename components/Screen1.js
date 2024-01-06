@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { StyleSheet, View, Text, Button, TextInput, ImageBackground, Image, TouchableOpacity, KeyboardAvoidingView, Platform, Alert } from 'react-native';
-import background from '../components/BackgroundImage.png';
+import background from '../components/pigeons-color.jpg';
 import { getAuth, signInAnonymously } from 'firebase/auth';
 
 
@@ -34,7 +34,7 @@ return (
    source={background}
    >
     
-    <Text style={styles.textTitle}>Chat App</Text>
+    <Text style={styles.textTitle}>Homing</Text>
 
 
  <View style={styles.box}>
@@ -64,7 +64,7 @@ return (
   }}
    />
   <TouchableOpacity style={[ styles.circle, styles.circleColor4]}
-    onPress={() =>{ setBackgroundColor('#B9C6AE');
+    onPress={() =>{ setBackgroundColor('#FFA0FF');
    }}
      
   />
@@ -79,8 +79,8 @@ return (
 <View style={styles.button}>
     <Button
       style={styles.button}
-      title="Start Chatting"
-      color="#757083"
+      title="Send a Message"
+      color="#684995"
       onPress={ signInUser }
     />
     </View>
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
 
 textTitle: {
  marginTop: 16,
- fontSize: 45,
+ fontSize: 55,
  fontWeight: '600',
  color: '#FFFFFF',
  paddingBottom: 150,
@@ -145,17 +145,17 @@ circleColor1: {
 
 
 circleColor2: {
- backgroundColor: '#474056',
+ backgroundColor: '#4A3E80',
 },
 
 
 circleColor3: {
- backgroundColor: '#8A95A5',
+ backgroundColor: '#8250AF',
 },
 
 
 circleColor4: {
- backgroundColor: '#B9C6AE',
+ backgroundColor: '#FFA0FF',
 },
 
 
@@ -169,7 +169,7 @@ box: {
 
 
 button: {
- justifyContent: 'center',
+justifyContent: 'center',
 fontSize: 16,
 fontWeight: '600',
 color: '#FFFFFF',
