@@ -2,6 +2,7 @@
 import { initializeApp } from "firebase/app";
 //disable reconnection attempts by firestore db and add to useEffect
 import { getFirestore, disableNetwork, enableNetwork  } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
 
 
 // import the screens
@@ -53,6 +54,7 @@ const App = () => {
   const app = initializeApp(firebaseConfig);
   //initialize cloud firestore and get reference to service
   const db = getFirestore(app);
+  const storage = getStorage(app);
 
  return (
    <NavigationContainer>
@@ -69,6 +71,7 @@ const App = () => {
         {props => <Screen2 
         isConnected={connectionStatus.isConnected} 
         db={db} 
+        storage={storage}
         {...props}
         />}
        </Stack.Screen>

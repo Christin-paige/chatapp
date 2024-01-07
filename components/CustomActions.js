@@ -4,9 +4,16 @@ import * as ImagePicker from 'expo-image-picker';
 import * as Location from 'expo-location';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
-const customActions = ({ wrapperStyle, iconTextStyle, onSend, storage, userID }) => {
+
+const CustomActions = ({ wrapperStyle, iconTextStyle, onSend, storage, userID }) => {
     const actionSheet = useActionSheet();
-    
+
+    const generateReference = (uri) => {
+      const timeStamp = (new Date()).getTime();
+      const imageName = uri.split("/")[uri.split("/").length - 1];
+      return `${userID}-${timeStamp}-${imageName}`;
+    }
+
         const onActionPress = () => {
             const options = ['Choose From Library', 'Take Picture', 'Send Location', 'Cancel'];
             const cancelButtonIndex = options.length - 1;
@@ -41,6 +48,7 @@ const customActions = ({ wrapperStyle, iconTextStyle, onSend, storage, userID })
               onSend({ image: imageURL })
             });
           }
+        
 
           const pickImage = async () => {
             let permissions = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -50,27 +58,19 @@ const customActions = ({ wrapperStyle, iconTextStyle, onSend, storage, userID })
               else Alert.alert("Permissions haven't been granted.");
             }
           }
-
+        
           const takePhoto = async () => {
             let permissions = await ImagePicker.requestCameraPermissionsAsync();
             if (permissions?.granted) {
-              let result = await ImagePicker.launchCameraAsync();//Expo's API
+              let result = await ImagePicker.launchCameraAsync();
               if (!result.canceled) await uploadAndSendImage(result.assets[0].uri);
               else Alert.alert("Permissions haven't been granted.");
             }
           }
-        
-
-        const generateReference = (uri) => {
-          const timeStamp = (new Date()).getTime();
-          const imageName = uri.split("/")[uri.split("/").length - 1];
-          return `${userID}-${timeStamp}-${imageName}`;
-        }
-      
-
+    
         const getLocation = async () => {
             let permissions = await Location.requestForegroundPermissionsAsync();
-            if (permissions.granted) {
+            if (permissions?.granted) {
               const location = await Location.getCurrentPositionAsync({})//reads user's location data
                if (location) {
                 onSend({
@@ -84,7 +84,8 @@ const customActions = ({ wrapperStyle, iconTextStyle, onSend, storage, userID })
           }
 
     return (
-        <TouchableOpacity style={styles.container}
+        <TouchableOpacity 
+        style={styles.container}
         onPress={onActionPress}>
             <View style={[styles.wrapper, wrapperStyle]}>
                 <Text style = {[styles.iconText, iconTextStyle]}>+</Text>
@@ -92,7 +93,7 @@ const customActions = ({ wrapperStyle, iconTextStyle, onSend, storage, userID })
         </TouchableOpacity>
       );
 
-    }
+    };
 
 const styles = StyleSheet.create({
     container: {
@@ -118,4 +119,4 @@ const styles = StyleSheet.create({
   
 
 
-export default customActions;
+export default CustomActions;

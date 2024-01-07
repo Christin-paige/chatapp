@@ -13,23 +13,20 @@ const Screen2 = ({ route, navigation, db, isConnected, storage}) => {
   const { backgroundColor } = route.params;
   const [messages, setMessages] = useState([]);
   
-  //adding and saving messages to the database
-  const onSend = (newMessages) => {
-    addDoc(collection(db,"messages"),
-     newMessages[0])
-  }
-  
   let unsubMessages;
+
    useEffect(() => {
-     navigation.setOptions({ 
-      title: name
-    });
+     navigation.setOptions({ title: name });
 
 //displays chat for user online
        if (isConnected === true){
-       const q = query(collection(db,"messages"), orderBy("createdAt",
+
+        if (unsubMessages) unsubMessages();
+        unsubMessages = null;
+       
+        const q = query(collection(db,"messages"), orderBy("createdAt",
        "desc"));
-       unsubMessages = onSnapshot(q, async (docs) => {
+       unsubMessages = onSnapshot(q, (docs) => {
         let newMessages = [];
         docs.forEach(doc => {
           newMessages.push({ 
@@ -59,12 +56,19 @@ const Screen2 = ({ route, navigation, db, isConnected, storage}) => {
       } catch (error) {
         console.log(error.message);
       }
-    };
+    }
+
+     //adding and saving messages to the database
+  const onSend = (newMessages) => {
+    addDoc(collection(db,"messages"),
+     newMessages[0])
+  }
+  
   
      const renderInputToolbar = (props) => {
       if (isConnected === true) return <InputToolbar {...props} />;
       else return null;
-     };
+     }
 
      //sets color of the chat bubbles for each user
    const renderBubble = (props) => {
@@ -85,7 +89,7 @@ const Screen2 = ({ route, navigation, db, isConnected, storage}) => {
   
  //added storage as a parameter bc of an error when loading the app
    const renderCustomActions = (props) => {
-    return <CustomActions storage={storage} userID={userID} {...props} />;
+    return <CustomActions onSend={onSend} storage={storage} userID={userID} {...props} />;
   };
 
   const renderCustomView = (props) => {
@@ -139,6 +143,7 @@ container: {
 
 }
 });
+
 
 
 export default Screen2;
