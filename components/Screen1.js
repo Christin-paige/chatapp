@@ -56,11 +56,11 @@ return (
 }}
 />
   <TouchableOpacity style={[ styles.circle, styles.circleColor2]}
-  onPress={() =>{ setBackgroundColor('#474056');
+  onPress={() =>{ setBackgroundColor('#4A3E80');
  }}
   />
   <TouchableOpacity style={[ styles.circle, styles.circleColor3]}
-   onPress={() =>{ setBackgroundColor('#8A95A5');
+   onPress={() =>{ setBackgroundColor('#8250AF');
   }}
    />
   <TouchableOpacity style={[ styles.circle, styles.circleColor4]}
