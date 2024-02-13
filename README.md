@@ -1,5 +1,9 @@
 # Homing
-<img src="/homingapp.mp4"/>
+
+<a href = "./homingapp.mp4">
+
+
+
 ** "Compare sending someone a text message and getting a love letter delivered by carrier pigeon. No contest."
 ** - Bryan Callen
 
