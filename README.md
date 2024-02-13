@@ -1,11 +1,11 @@
 # Homing
 
-<a href = "./homingapp.mp4">
+<a href="./homingapp.mp4">
 
 
 
-** "Compare sending someone a text message and getting a love letter delivered by carrier pigeon. No contest."
-** - Bryan Callen
+"Compare sending someone a text message and getting a love letter delivered by carrier pigeon. No contest."
+- Bryan Callen
 
 ### A homing (carrier) pigeon is trained to return to a place quickly, much like Homing, a native chat app built using the framework React Native and developed using Expo, your messages ### will be sent received quickly without bugs.    
 ### The communication features include sending messages, sending photos from the user's library, sending camera photos, and sending their location.
