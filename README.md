@@ -8,7 +8,7 @@ https://github.com/Christin-paige/chatapp/assets/128321147/eda6d204-c942-492a-8f
 
 
 
-*  A homing (carrier) pigeon is trained to return to a place quickly, much like Homing, a native chat app built using the framework React Native and developed using Expo, your messages ### will be sent received quickly without bugs.    
+*  A homing (carrier) pigeon is trained to return to a place quickly, much like Homing, a native chat app built using the framework React Native and developed using Expo, your messages will be sent and received quickly without bugs.    
 * The communication features include sending messages, sending photos from the user's library, sending camera photos, and sending their location.
 * Users can also enter their name and choose the background color from the four choices on the start screen.
 *The chat interface and functionality was created using the Gifted Chat Library.
